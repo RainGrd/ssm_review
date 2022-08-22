@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:mvc="http://www.springframework.org/schema/mvc"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc.xsd
+        http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
+    <!--1.配置组件扫描 只扫描Controller层-->
+    <context:component-scan base-package="com.bdqn">
+        <context:include-filter type="annotation" expression="org.springframework.stereotype.Controller"/>
+    </context:component-scan>
+    <!--2.配置静态资源访问权限-->
+    <mvc:default-servlet-handler/>
+    <!--3.开启注解驱动-->
+    <mvc:annotation-driven>
+        <!--用于解决参数中文乱码-->
+        <mvc:message-converters>
+            <bean class="org.springframework.http.converter.StringHttpMessageConverter">
+                <!--支持的媒体类型-->
+                <property name="supportedMediaTypes">
+                    <list>
+                        <value>application/json;charset=UTF-8</value>
+                        <value>text/plain;charset=UTF-8</value>
+                        <value>text/json;charset=UTF-8</value>
+                        <value>text/html;charset=UTF-8</value>
+                    </list>
+                </property>
+            </bean>
+        </mvc:message-converters>
+    </mvc:annotation-driven>
+    <!--4.配置jackson适配器，用于spring返回数据可以返回JSON数据-->
+    <bean class="org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter" id="adapter">
+        <property name="messageConverters">
+            <list>
+                <bean class="org.springframework.http.converter.json.MappingJackson2HttpMessageConverter"/>
+            </list>
+        </property>
+    </bean>
+    <!--5.配置内部视图解析器-->
+    <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver" id="viewResolver">
+        <!--设置前缀-->
+        <property name="prefix" value="/WEB-INF/view/"/>
+        <!--后缀-->
+        <property name="suffix" value=".jsp"/>
+    </bean>
+    <!--6.配置拦截器-->
+<!--    <mvc:interceptors>-->
+<!--        <mvc:interceptor>-->
+<!--            <mvc:mapping path="/**"/>-->
+<!--            &lt;!&ndash;设置以下资源不被拦截&ndash;&gt;-->
+<!--            <mvc:exclude-mapping path="/**/*/font"/>-->
+<!--            <mvc:exclude-mapping path="/**/*.css"/>-->
+<!--            <mvc:exclude-mapping path="/**/*.js"/>-->
+<!--            <mvc:exclude-mapping path="/**/*.png"/>-->
+<!--            <mvc:exclude-mapping path="/**/*.gif"/>-->
+<!--            <mvc:exclude-mapping path="/**/*.jpg"/>-->
+<!--            <mvc:exclude-mapping path="/**/*.jpeg"/>-->
+<!--            <mvc:exclude-mapping path="/resume/findResume.do"/>-->
+<!--            <mvc:exclude-mapping path="/announcement/findAnnouncement.do"/>-->
+<!--            <mvc:exclude-mapping path="/recruitmentInfo/findAllRecruitersInfo.do"/>-->
+<!--            <mvc:exclude-mapping path="/user/login"/>-->
+<!--            <mvc:exclude-mapping path="/plugins/**"/>-->
+<!--            &lt;!&ndash;跳转域名&ndash;&gt;-->
+<!--            <mvc:exclude-mapping path="/*"/>-->
+<!--            &lt;!&ndash;配置拦截器类&ndash;&gt;-->
+<!--            <bean class="com.recruitment.interceptor.PrivilegeInterceptor">-->
+<!--            </bean>-->
+<!--        </mvc:interceptor>-->
+<!--    </mvc:interceptors>-->
+</beans>

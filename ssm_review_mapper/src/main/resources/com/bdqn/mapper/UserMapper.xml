@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.bdqn.mapper.UserMapper">
+<!--    <insert id="Dao接口中添加数据所对应的方法名">
+        insert into `table:表名`
+        values (#{字段名1}, #{字段名1}, #{字段3})
+    </insert>-->
+    <!--com.mybatis.domain.Book-->
+    <select id="getAll" resultType="user">
+        select *
+        from bdqn.t_user
+    </select>
+</mapper>
