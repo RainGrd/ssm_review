@@ -1,11 +1,13 @@
 package com.bdqn.interceptor;
 
 import org.springframework.stereotype.Component;
+import org.springframework.web.method.HandlerMethod;
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.util.logging.Handler;
 
 /**
  * Copyright (C), 2017-2022, RainGrd
@@ -18,7 +20,8 @@ import javax.servlet.http.HttpServletResponse;
 public class PrivilegeInterceptor implements HandlerInterceptor {
 
     public boolean preHandle(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, Object handler) {
-
+        System.out.println("11");
+        HandlerMethod handlerMethod= (HandlerMethod) handler;
         return true;
     }
     @Override

@@ -17,7 +17,7 @@ import org.springframework.web.servlet.view.InternalResourceViewResolver;
  * FileName: WebConfig
  * Description: 配置拦截器
  */
-@Configuration
+//@Configuration
 public class WebConfig extends WebMvcConfigurerAdapter {
     /**
      * 配置视图解析器
@@ -39,9 +39,11 @@ public class WebConfig extends WebMvcConfigurerAdapter {
      */
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
+        System.out.println(1);
         // addPathPatterns 是配置需要拦截的方法，如果遇到拦截不同的Controller，
         // 我们可以使用不同的配置，比如：/user/* 在这里是可以配置多个拦截器的。
         registry.addInterceptor(new PrivilegeInterceptor()).addPathPatterns("/*");
+        registry.addInterceptor(new PrivilegeInterceptor()).addPathPatterns("/user/*");
     }
     /*对于静态资源的处理*/
 
